@@ -23,7 +23,6 @@ steps:
   secretEnv: ['SENDGRID_API_KEY', 'MONGO_BASE_URL', 'JWT_SECRET']
 images:
   - '$_TARGET_REGION-docker.pkg.dev/$_DEPLOY_PROJECT_ID/$_SERVICE_NAME/task-app:$COMMIT_SHA'
-  - '$_TARGET_REGION-docker.pkg.dev/$_DEPLOY_PROJECT_ID/$_SERVICE_NAME/task-app:latest'
 availableSecrets:
   secretManager:
   - versionName: projects/$_DEPLOY_PROJECT_ID/secrets/sendgrid-api-key/versions/latest
