@@ -17,12 +17,12 @@ spec:
       containers:
       - name: task-app
         image: europe-west2-docker.pkg.dev/task-app-nodejs-mongodb/task-app/task-app:autopilot
+        resources:
+          limits:
+            memory: "16GB"
+            cpu: "4"
+          requests:
+            memory: "4GB"
+            cpu: "1"
         ports:
         - containerPort: 8080
-      limits:
-      - default:
-        memory: 16GB
-        cpu: 4
-        defaultRequest:
-          memory: 4
-          cpu: 1
