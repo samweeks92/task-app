@@ -1,6 +1,6 @@
-name: task-app-trigger
-description: Task App Trigger
-filename: build/cloudbuild.yaml
+name: task-app-trigger-cloudrun
+description: Task App Trigger for Cloud Run
+filename: build/cloudbuild-cloudrun.yaml
 triggerTemplate:
   repoName: github_samweeks92_task-app
   projectId: task-app-nodejs-mongodb

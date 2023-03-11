@@ -1,0 +1,18 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', '$_TARGET_REGION-docker.pkg.dev/$_DEPLOY_PROJECT_ID/task-app/task-app:autopilot', '.' ]
+# Push with Commit SHA as Tag
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', '$_TARGET_REGION-docker.pkg.dev/$_DEPLOY_PROJECT_ID/$_SERVICE_NAME/task-app:autopilot']
+# deploy container image to GKE
+- name: "gcr.io/cloud-builders/gke-deploy"
+  args:
+  - run
+  - --filename=autopilot-deployment.yaml
+  - --location=$_TARGET_REGION
+  - --cluster=autopilot-cluster-01
+images:
+  - '$_TARGET_REGION-docker.pkg.dev/$_DEPLOY_PROJECT_ID/$_SERVICE_NAME/task-app:autopilot'
+  - '$_TARGET_REGION-docker.pkg.dev/$_DEPLOY_PROJECT_ID/$_SERVICE_NAME/task-app:latest'
+tags:
+    - gcp-cloud-build-deploy-autopilot

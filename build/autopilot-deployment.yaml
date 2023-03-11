@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task-app-deployment
+  labels:
+    app: task-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: task-app
+  template:
+    metadata:
+      labels:
+        app: task-app
+    spec:
+      containers:
+      - name: task-app
+        image: europe-west2-docker.pkg.dev/task-app-nodejs-mongodb/task-app/task-app:autopilot
+        ports:
+        - containerPort: 8080
+      limits:
+      - default:
+        memory: 16GB
+        cpu: 4
+        defaultRequest:
+          memory: 4
+          cpu: 1
