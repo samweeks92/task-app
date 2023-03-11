@@ -32,7 +32,11 @@ gcloud secrets versions add jwt-secret --data-file="./config/jwt-secret.txt"
 
 
 
-<!-- gcloud projects add-iam-policy-binding $DEPLOY_PROJECT_ID --member=serviceAccount:$DEPLOY_PROJECT_NUMBER-compute@developer.gserviceaccount.com --role="roles/clouddeploy.jobRunner"
+<!-- 
+
+BELOW IS FOR CLOUD DEPLOY
+
+gcloud projects add-iam-policy-binding $DEPLOY_PROJECT_ID --member=serviceAccount:$DEPLOY_PROJECT_NUMBER-compute@developer.gserviceaccount.com --role="roles/clouddeploy.jobRunner"
 
 gcloud iam service-accounts add-iam-policy-binding $DEPLOY_PROJECT_NUMBER-compute@developer.gserviceaccount.com --member=serviceAccount:$DEPLOY_PROJECT_NUMBER-compute@developer.gserviceaccount.com --role="roles/iam.serviceAccountUser" --project=$DEPLOY_PROJECT_ID
 

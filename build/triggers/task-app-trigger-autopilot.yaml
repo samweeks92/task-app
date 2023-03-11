@@ -4,10 +4,8 @@ filename: build/cloudbuild-autopilot.yaml
 triggerTemplate:
   repoName: github_samweeks92_task-app
   projectId: task-app-nodejs-mongodb
-  branchName: ^main$
+  tagName: ^autopilot.*
 substitutions:
   _DEPLOY_PROJECT_ID: task-app-nodejs-mongodb
   _SERVICE_NAME: task-app
-  _PLATFORM: managed
   _TARGET_REGION: europe-west2
-  _PORT: '8080'
