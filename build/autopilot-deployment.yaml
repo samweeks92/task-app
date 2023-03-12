@@ -19,10 +19,30 @@ spec:
         image: europe-west2-docker.pkg.dev/task-app-nodejs-mongodb/task-app/task-app:autopilot
         resources:
           limits:
-            memory: "16GB"
+            memory: "16Gi"
             cpu: "4"
           requests:
-            memory: "4GB"
+            memory: "4Gi"
             cpu: "1"
         ports:
         - containerPort: 8080
+        env:
+        - name: RUNTIME
+          value: "AUTOPILOT"
+        - name: PORT
+          value: "8080"
+        - name: DEPLOY_PROJECT_NUMBER
+          value: "86033638574"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: task-app-service
+spec:
+  selector:
+    app: task-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer

@@ -1,5 +1,12 @@
+if (process.env.RUNTIME === "AUTOPILOT"){
+    console.log("environment is set to AUTOPILOT, so taking en vars from Secret Manager:")
+    require('./environment-config/autopilot')
+} else {
+    console.log("environment is not set to AUTOPILOT, so using pre-set env vars")
+    require('./db/mongoose')
+}
+
 const express = require('express')
-require('./db/mongoose')
 const userRouter = require('./routers/user.js')
 const taskRouter = require('./routers/task.js')
 
