@@ -15,7 +15,7 @@ async function getSecret(secretName) {
 getSecret("mongo-base-url").then((result) => {
     process.env.MONGO_BASE_URL=result;
     console.log(`MONGO_BASE_URL=${process.env.MONGO_BASE_URL}`)
-    require('./db/mongoose')
+    require('../db/mongoose')
 }).catch((e) => {
     console.log('e', e) // if the async function threw an error, this would be returned here
 })   

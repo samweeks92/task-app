@@ -1,7 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: task-app
+  labels:
+    name: task-app
+---    
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: task-app-deployment
+  namespace: task-app
   labels:
     app: task-app
 spec:
@@ -14,6 +22,7 @@ spec:
       labels:
         app: task-app
     spec:
+      serviceAccountName: task-app-ksa
       containers:
       - name: task-app
         image: europe-west2-docker.pkg.dev/task-app-nodejs-mongodb/task-app/task-app:autopilot
@@ -38,6 +47,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: task-app-service
+  namespace: task-app
 spec:
   selector:
     app: task-app
@@ -46,3 +56,24 @@ spec:
       port: 80
       targetPort: 8080
   type: LoadBalancer
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: task-app-ksa
+  namespace: task-app
+
+
+
+# gcloud iam service-accounts create task-app-sa --display-name="Task App Service Account"
+
+# gcloud secrets add-iam-policy-binding jwt-secret --member=serviceAccount:task-app-sa@task-app-nodejs-mongodb.iam.gserviceaccount.com --role='roles/secretmanager.secretAccessor'
+# gcloud secrets add-iam-policy-binding jwt-secret --member=serviceAccount:task-app-sa@task-app-nodejs-mongodb.iam.gserviceaccount.com --role='roles/secretmanager.secretVersionAdder'
+# gcloud secrets add-iam-policy-binding mongo-base-url --member=serviceAccount:task-app-sa@task-app-nodejs-mongodb.iam.gserviceaccount.com --role='roles/secretmanager.secretAccessor'
+# gcloud secrets add-iam-policy-binding mongo-base-url --member=serviceAccount:task-app-sa@task-app-nodejs-mongodb.iam.gserviceaccount.com --role='roles/secretmanager.secretVersionAdder'
+# gcloud secrets add-iam-policy-binding sendgrid-api-key --member=serviceAccount:task-app-sa@task-app-nodejs-mongodb.iam.gserviceaccount.com --role='roles/secretmanager.secretAccessor'
+# gcloud secrets add-iam-policy-binding sendgrid-api-key --member=serviceAccount:task-app-sa@task-app-nodejs-mongodb.iam.gserviceaccount.com --role='roles/secretmanager.secretVersionAdder'
+
+# gcloud iam service-accounts add-iam-policy-binding task-app-sa@task-app-nodejs-mongodb.iam.gserviceaccount.com --member=serviceAccount:task-app-nodejs-mongodb.svc.id.goog[task-app/task-app-ksa] --role='roles/iam.workloadIdentityUser'
+
+# kubectl annotate serviceaccount task-app-ksa --namespace=task-app iam.gke.io/gcp-service-account=task-app-sa@task-app-nodejs-mongodb.iam.gserviceaccount.com
