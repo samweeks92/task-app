@@ -13,6 +13,5 @@ steps:
   - --cluster=autopilot-cluster-01
 images:
   - '$_TARGET_REGION-docker.pkg.dev/$_DEPLOY_PROJECT_ID/$_SERVICE_NAME/task-app:autopilot'
-  - '$_TARGET_REGION-docker.pkg.dev/$_DEPLOY_PROJECT_ID/$_SERVICE_NAME/task-app:latest'
 tags:
     - gcp-cloud-build-deploy-autopilot
