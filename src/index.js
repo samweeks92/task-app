@@ -1,5 +1,5 @@
 if (process.env.RUNTIME === "AUTOPILOT"){
-    console.log("environment is set to AUTOPILOT, so taking en vars from Secret Manager:")
+    console.log("environment is set to AUTOPILOT, so taking en vars from Secret Manager...")
     require('./environment-config/autopilot')
 } else {
     console.log("environment is not set to AUTOPILOT, so using pre-set env vars")
